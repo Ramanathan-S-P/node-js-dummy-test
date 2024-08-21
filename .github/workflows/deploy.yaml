@@ -21,7 +21,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@34.207.140.240 << 'ENDSSH'
           # Navigate to the deployment directory
-          cd /home/ubuntu/deploys/node-js-dummy-test || exit
+          cd /home/ubuntu/deploys/node-js-dummy-test 
           
           
           git pull origin master
