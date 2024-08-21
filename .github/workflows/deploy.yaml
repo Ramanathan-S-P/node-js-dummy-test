@@ -9,21 +9,30 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v3
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-  
-    - name: Add server to known hosts
-      run: |
-        ssh-keyscan -H 34.207.140.240 >> ~/.ssh/known_hosts
 
     - name: Deploy to Server
       run: |
-        rsync -avz --delete ./ ubuntu@34.207.140.240:/home/ubuntu/node-js-dummy-test
-        ssh ubuntu@34.207.140.240 'sudo systemctl restart nginx'
+        ssh -o StrictHostKeyChecking=no ubuntu@34.207.140.240 << 'ENDSSH'
+          # Navigate to the deployment directory
+          cd /home/ubuntu/deploys/node-js-dummy-test || exit
+          
+          
+          git pull origin master
+
+     
+          npm install
+
+          pm2 restart all
+
+         
+          sudo systemctl restart nginx
+        ENDSSH
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
