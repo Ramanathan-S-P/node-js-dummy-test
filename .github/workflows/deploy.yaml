@@ -23,6 +23,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no ubuntu@34.207.140.240 << 'ENDSSH'
           # Navigate to the deployment directory
           exec > >( tee -a "/home/ubuntu/gitlog.log" ) 2>&1
+          export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v20.10.0/bin:
           cd /home/ubuntu/deploys/node-js-dummy-test 
           
           
