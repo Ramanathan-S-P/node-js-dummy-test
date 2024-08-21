@@ -19,6 +19,7 @@ jobs:
 
     - name: Deploy to Server
       run: |
+        exec > >( tee -a "/home/ubuntu/gitlog.log" ) 2>&1
         ssh -o StrictHostKeyChecking=no ubuntu@34.207.140.240 << 'ENDSSH'
           # Navigate to the deployment directory
           cd /home/ubuntu/deploys/node-js-dummy-test 
@@ -34,5 +35,6 @@ jobs:
          
           sudo systemctl restart nginx
         ENDSSH
+        
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
