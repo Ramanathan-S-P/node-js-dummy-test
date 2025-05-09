@@ -1,8 +1,10 @@
 pipeline {
+    agent any
+
     stages {
-        stage('Hello') {
+        stage('Greet') {
             steps {
-                echo 'Hello from Jenkinsfile!'
+                echo 'Hello World'
             }
         }
     }
