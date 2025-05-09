@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     stages {
         stage('Greet') {
             steps {
-                echo 'Hello World'
+                echo "Hello! A new push was made to the Git repository."
             }
         }
     }
